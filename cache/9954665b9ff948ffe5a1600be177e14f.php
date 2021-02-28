@@ -1,0 +1,95 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <title>Binary by TEMPLATED</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="public/css/main.css" />
+</head>
+
+<body>
+    <!-- Header -->
+    <header id="header">
+        <a href="" class="logo">請假系統</a>
+        <nav>
+            <a href="#menu">Menu</a>
+        </nav>
+        <style>
+            .center {
+                margin: auto;
+                width: 60%;
+                padding: 10px;
+            }
+        </style>
+    </header>
+
+    <!-- Nav -->
+    <nav id="menu">
+        <ul class="links">
+            <li><a href="">Home</a></li>
+            <li><a href="">Generic</a></li>
+            <li><a href="">Elements</a></li>
+        </ul>
+    </nav>
+
+    <!-- Banner -->
+    <section id="banner">
+        <form method="post" action="">
+            <table>
+                <thead>
+                    <tr>
+                        <th scope="col"></th>
+                        <th scope="col">項目</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">1</th>
+                        <td style="float: left;">新增員工</td>
+                        <td><input type="submit" name="addEmployee" value="確認"></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">2</th>
+                        <td style="float: left;">在職員工名單</td>
+                        <td><input type="submit" name="staffList" value="確認"></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">3</th>
+                        <td style="float: left;">離職員工名單</td>
+                        <td><input type="submit" name="resignedStaffList" value="確認"></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">4</th>
+                        <td style="float: left;">留職停薪員工名單</td>
+                        <td><input type="submit" name="LeaveWithoutPayStaffList" value="確認"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
+    </section>
+
+    <!-- Footer -->
+    <footer id="footer">
+        <ul class="icons">
+            <li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+            <li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+            <li><a href="#" class="icon fa-instagram"><span class="label">Instagram</span></a></li>
+        </ul>
+        <div class="copyright">
+            &copy; Untitled. Design: <a href="https://templated.co">TEMPLATED</a>. Images: <a
+                href="https://unsplash.com">Unsplash</a>.
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="public/js/jquery.min.js"></script>
+    <script src="public/js/jquery.scrolly.min.js"></script>
+    <script src="public/js/skel.min.js"></script>
+    <script src="public/js/util.js"></script>
+    <script src="public/js/main.js"></script>
+
+</body>
+
+</html>

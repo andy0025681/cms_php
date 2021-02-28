@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="css/basic.css">
+    <?php include '../model/time.php'; ?>
+    <?php include '../model/createOption.php'; ?>
+    <title>新增特別假</title>
+    <img class="logo" src="images/logo.png" alt="logo">
+</head>
+
+<body>
+    <div class="container-fluid">
+        <form method="POST" action="<?php echo 'addLeavePage.php' ?>" enctype="multipart/form-data">
+            <p>
+                <label>獲得特別假人員: </label>
+                <select id="getLeaveStaff" name="getLeaveStaff" required>';
+                    <?php
+                    echo '<option value="">請選擇</option>';
+                    echo staffListOption();
+                    ?>
+                </select>
+            </p>
+            <!-- <p>
+                <label>使用期限: </label>
+                <input type="date" id="startDay" name="startDay" value="<?php // echo $today; ?>" min="<?php // echo $today; ?>" required>
+                ~
+                <input type="date" id="endDay" name="endDay" value="<?php // echo $today; ?>" min="<?php // echo $today; ?>" required>
+            </p> -->
+            <p>
+                <label>時數: </label>
+                <input type="number" style="width: 80px;" id="duration" name="duration" min='0.0' step="0.5" required>
+            </p>
+            <p>
+                <label>獲假原因: </label><br>
+                <textarea cols="50" rows="5" id="reason" name="reason" required></textarea>
+            </p>
+            <p>
+                <label>附件: </label><br>
+                <input type="file" id="annex" name="annex">
+            </p>
+            <input type="submit" name="add_leave_send" value="送出">
+        </form>
+    </div>
+</body>
+
+</html>
+<?php
+require_once('../model/specialLeave.php');
+require_once('../model/annex.php');
+require_once('../model/mail.php');
+if (isset($_POST["add_leave_send"])) {
+    $res = true;
+    $staffCode = $_POST['getLeaveStaff'];
+    $startDate = date('Y') . '-01-01';
+    $endDate = date('Y') . '-12-31';
+    $duration = $_POST['duration'];
+    $reason = $_POST['reason'];
+    $specialLeaveNum = getNewSpecialLeaveNum();
+    $path = false;
+    // 附件
+    if (isset($_FILES["annex"]) and $_FILES["annex"]["error"] == 0) {
+        $path = explode('.', $_FILES["annex"]["name"]);
+        $path = "../annex/" . $specialLeaveNum . "_特別假附件." . $path[count($path) - 1];
+        uploadFile($_FILES, $path);
+    }
+    // 特別假
+    if ($res) {
+        $mailTitle = '特別假申請';
+        if (addSpecialLeave($specialLeaveNum, $staffCode, $startDate, $endDate, $duration, $reason)) {
+            echo "資料庫更新成功<br>";
+            if (specialLeaveRequestLetter($specialLeaveNum, $path)) echo "特別假申請信發送成功<br>";
+            else echo "特別假申請信發送失敗<br>";
+        } else echo "資料庫更新失敗<br>";
+    }
+}
+?>

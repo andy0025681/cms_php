@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="css/basic.css">
+    <title>新增補班/放假紀錄</title>
+    <img class="logo" src="images/logo.png" alt="logo">
+    <?php 
+    require_once('../model/time.php');
+    include '../model/workdayOrWeekend.php';
+    ?>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <form method="POST" action="<?php echo 'workdayOrWeekendPage.php' ?>">
+            <p>
+                <label>類型: </label>
+                <select id="type" name="type" required>';
+                    <?php
+                    echo '<option value="">請選擇</option>';
+                    echo '<option value="1">補班</option>';
+                    echo '<option value="0">放假</option>';
+                    ?>
+                </select>
+            </p>
+            <p>
+                <label>起始日: </label>
+                <input type="date" id="startDate" name="startDate" value="<?php echo $today; ?>" min="<?php echo $today; ?>">
+                <br>
+                <label>結束日: </label>
+                <input type="date" id="endDate" name="endDate" value="<?php echo $today; ?>" min="<?php echo $today; ?>">
+            </p>
+            <p>
+                <label>原由: </label><br>
+                <textarea cols="50" rows="5" id="reason" name="reason" required></textarea>
+            </p>
+            <input type="submit" name="workday_or_weekend_send" value="送出">
+        </form>
+    </div>
+</body>
+
+</html>
+<?php
+if (isset($_POST["workday_or_weekend_send"])) {
+    $type = $_POST['type'];
+    $startDate = $_POST['startDate'];
+    $endDate = $_POST['endDate'];
+    $reason = $_POST['reason'];
+    if(addWorkdayOrWeekend($startDate, $endDate, $reason, $type)) echo "新增成功!";
+    else echo "新增失敗!";
+}
+?>
